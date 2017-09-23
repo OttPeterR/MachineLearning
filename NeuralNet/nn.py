@@ -22,51 +22,60 @@ def sigmoid_matrix(mat):
 
 #returns (as a scalar) the error between the output and correct vectors
 def net_error(o, c):
-	# error = 0.5 * (transpose(c-o) . (c-o))
-	diff = np.subtract(c, o)
-	dot = diff.transpose().dot(diff)
-	ans = np.multiply(0.5, dot)
+    # error = 0.5 * (transpose(c-o) . (c-o))
+    diff = np.subtract(c, o)
+    dot = diff.transpose().dot(diff)
+    ans = np.multiply(0.5, dot)
     return ans
+
+# makes matrix filled randomly with -val to val
+def gen_random_matrix(i, j, val):
+    if(i<=0 or j<=0):
+        return [0]
+    mat = (2 * val * np.random.random_sample((i, j))) - val
+    return mat
 
 
 # I know these two functions are redundant, but it helps readability
 def make_h(v, i):
-	ans = sigmoid_matrix(np.multiply(v, i))
+    ans = sigmoid_matrix(v.dot(i))
     return ans
 def make_o(w ,h):
-	ans = sigmoid_matrix(np.multiply(w, h))
+    ans = sigmoid_matrix(w.dot(h))
     return ans
 
 
 def forward_propagate(datum, v, w):
-	h=make_h(v, datum[0])
-	o=make_o(w, h)
-	return o
+    h=make_h(v, datum[0])
+    o=make_o(w, h)
+    return o
 
 
 def back_propagate(datum, alpha, v, w):
-	#i is (first datum)
-	#c is (second datum)
-	#h = sigmoid[v . i]
-	#o = sigmoid[w . h]
-	#odelta = (c - o) * o * (1 - o)
-	#hdelta = (h * (1 - h) * (tr[w] . odelta))
-	#wdelta = alpha % (odelta . tr[h])
-	#vdelta = alpha (hdelta . tr[i])
-	#returns a list of (w + wdelta) and (v + vdelta) which are updated network matricies
-	i=datum[0]
-	c=datum[1]
-	h=make_h(v, i)
-	o=make_o(w, h)
-	odelta = np.multiply(np.multiply(np.subtract(c, o), o), np.subtract(1, o))
-	hdelta = np.multiply(np.multiply(h, np.subtract(1, h)),  w.transpose().dot(odelta))
-	wdelta = np.multiply(alpha, odelta.dot(h.transpose()))
-	vdelta = np.multiply(alpha, odelta.dot(i.transpose()))
-	ans = [np.add(v, vdelta), np.add(w, wdelta)]
+    #i is (first datum)
+    #c is (second datum)
+    #h = sigmoid[v . i]
+    #o = sigmoid[w . h]
+    #odelta = (c - o) * o * (1 - o)
+    #hdelta = (h * (1 - h) * (tr[w] . odelta))
+    #wdelta = alpha % (odelta . tr[h])
+    #vdelta = alpha (hdelta . tr[i])
+    #returns a list of (w + wdelta) and (v + vdelta) which are updated network matricies
+    i=datum[0]
+    c=datum[1]
+    h=make_h(v, i)
+    o=make_o(w, h)
+    odelta = np.multiply(np.multiply(np.subtract(c, o), o), np.subtract(1, o))
+    hdelta = np.multiply(np.multiply(h, np.subtract(1, h)),  w.transpose().dot(odelta))
+    wdelta = np.multiply(alpha, odelta.dot(h.transpose()))
+    vdelta = np.multiply(alpha, odelta.dot(i.transpose()))
+    ans = [np.add(v, vdelta), np.add(w, wdelta)]
     return ans
 
 
+
+
+
 def test():
-    
 
 test()
