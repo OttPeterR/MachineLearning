@@ -7,7 +7,7 @@ import numpy as np
 
 def shuffle(list):
     # randomize a list
-	pass
+	return list
 
 def sigmoid(u):
     ans = 1 / (1 + (np.exp(-u)))
@@ -31,9 +31,11 @@ def net_error(o, c):
 
 # I know these two functions are redundant, but it helps readability
 def make_h(v, i):
-	sigmoid_matrix(np.multiply(v, i))
+	ans = sigmoid_matrix(np.multiply(v, i))
+    return ans
 def make_o(w ,h):
-	sigmoid_matrix(np.multiply(w, h))
+	ans = sigmoid_matrix(np.multiply(w, h))
+    return ans
 
 
 def forward_propagate(datum, v, w):
@@ -60,7 +62,8 @@ def back_propagate(datum, alpha, v, w):
 	hdelta = np.multiply(np.multiply(h, np.subtract(1, h)),  w.transpose().dot(odelta))
 	wdelta = np.multiply(alpha, odelta.dot(h.transpose()))
 	vdelta = np.multiply(alpha, odelta.dot(i.transpose()))
-	return [np.add(v, vdelta), np.add(w, wdelta)]
+	ans = [np.add(v, vdelta), np.add(w, wdelta)]
+    return ans
 
 
 def test():
