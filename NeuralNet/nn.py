@@ -69,13 +69,55 @@ def back_propagate(datum, alpha, v, w):
     hdelta = np.multiply(np.multiply(h, np.subtract(1, h)),  w.transpose().dot(odelta))
     wdelta = np.multiply(alpha, odelta.dot(h.transpose()))
     vdelta = np.multiply(alpha, odelta.dot(i.transpose()))
-    ans = [np.add(v, vdelta), np.add(w, wdelta)]
+    ans = (np.add(v, vdelta), np.add(w, wdelta))
     return ans
+
+# returns the learned network matricies
+# data - array of datums
+def build_network(data, num_hidden_units, alpha, initial_bounds, max_iterations, modulo):
+    i = len(data[0][1]) # number of outputs, 0th data point's output
+    j = num_hidden_units
+    k = len(data[0][0]) # number of inputs, 0th data point's input
+    v = gen_random_matrix(j, k, initial_bounds) # input weights
+    w = gen_random_matrix(i, j, initial_bounds) # output weights
+
+
+    for i in range(max_iterations):
+        # For each data element in a randomized version of the data, perform backpropagation.          
+        v=0
+        w=0
+        for datum in shuffle(data):
+            (v, w) = back_propagate(datum, alpha, v, w)
+        
+        # every modulo iterations
+        if i%modulo == 0:
+            # For every data element in the data, perform forward propagation and
+            # collecting all the errors from forward-propagate and throwing them in a list
+            errors_all = []
+
+            errors_worst = 0
+            errors_mean = 0 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 def test():
+    pass
 
 test()
