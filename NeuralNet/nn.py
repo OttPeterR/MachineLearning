@@ -53,10 +53,6 @@ def make_o(w, h):
 
 
 def forward_propagate(datum, v, w):
-    print(v)
-    print()
-    print(datum[0])
-    print()
     h = make_h(v, datum[0])
     o = make_o(w, h)
     return o
