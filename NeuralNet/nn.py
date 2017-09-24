@@ -73,12 +73,12 @@ def back_propagate(datum, alpha, v, w):
     c = datum[1]
     h = make_h(v, i)
     o = make_o(w, h)
-    odelta = np.multiply(np.multiply(np.subtract(c, o), o), np.subtract(1, o))
-    hdelta = np.multiply(np.multiply(h, np.subtract(1, h)),
+    odelta = np.multiply(np.multiply((c - o), o), (1 - o))
+    hdelta = np.multiply(np.multiply(h, (1 - h)),
                          w.transpose().dot(odelta))
     wdelta = np.multiply(alpha, odelta.dot(h.transpose()))
     vdelta = np.multiply(alpha, hdelta.dot(i.transpose()))
-    ans = (np.add(v, vdelta), np.add(w, wdelta))
+    ans = ((v + vdelta), (w + wdelta))
     return ans
 
 # returns the learned network matricies
