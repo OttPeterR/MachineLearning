@@ -92,7 +92,7 @@ def build_network(data, num_hidden_units, alpha, initial_bounds, max_iterations,
         # every modulo iterations
         if i%modulo == 0:
             # For every data element in the data, perform forward propagation and
-            # collecting all the errors from forward-propagate and throwing them in a list
+            # collecting all the errors from forward_propagate and throwing them in a list
             errors_all = []
 
             errors_worst = 0
@@ -116,8 +116,5 @@ def build_network(data, num_hidden_units, alpha, initial_bounds, max_iterations,
 
 
 
+    
 
-def test():
-    pass
-
-test()
