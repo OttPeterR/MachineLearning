@@ -93,7 +93,7 @@ def build_network(data, num_hidden_units, alpha,
     k = len(data[0][0])  # number of inputs, 0th data point's input
     v = gen_random_matrix(j, k, initial_bounds)  # input weights
     w = gen_random_matrix(i, j, initial_bounds)  # output weights
-    
+
     for iteration in range(max_iterations):
         # For each data element in a randomized version of the data,
         # perform backpropagation.

@@ -14,13 +14,13 @@ def read_CSV(filepath, delimiter=','):
             data.append(points)
     return data
 
+
 def read_CSV2(filepath, delimiter=','):
     data = []
     with open(filepath, "r") as f:
         for line in f:
             data.append(line.split(delimiter))
     return data
-
 
 
 def move_first_to_last(filepath, delimiter=","):

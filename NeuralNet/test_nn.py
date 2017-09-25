@@ -1,30 +1,29 @@
 import numpy as np
-import time
 
 import nn
 import datum_reader as datum_reader
 
 
 def test_make_h():
-  v = np.matrix([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])
-  i = np.matrix([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
-  ans = nn.make_h(v, i)
-  print(ans)
+    v = np.matrix([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])
+    i = np.matrix([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
+    ans = nn.make_h(v, i)
+    print(ans)
 # test_make_h()
 # passed
 
 
 def test_back_propagate():
-  datum = [np.matrix([[.1], [.5], [.9]]),
-           np.matrix([.9])]
-  alpha = 1
-  v = np.matrix([[.5, .5, .5],
-                 [.5, .5, .5],
-                 [.5, .5, .5],
-                 [.5, .5, .5]])
-  w = np.matrix([[.5, .5, .5, .5]])
-  ans = nn.back_propagate(datum, alpha, v, w)
-  print(ans)
+    datum = [np.matrix([[.1], [.5], [.9]]),
+             np.matrix([.9])]
+    alpha = 1
+    v = np.matrix([[.5, .5, .5],
+                   [.5, .5, .5],
+                   [.5, .5, .5],
+                   [.5, .5, .5]])
+    w = np.matrix([[.5, .5, .5, .5]])
+    ans = nn.back_propagate(datum, alpha, v, w)
+    print(ans)
 
 # test_back_propagate()
 # passed
