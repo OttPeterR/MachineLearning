@@ -87,6 +87,7 @@ def back_propagate(datum, alpha, v, w):
 
 def build_network(data, num_hidden_units, alpha,
                   initial_bounds, max_iterations, modulo):
+    a_good_min_error = 1.0e-9
     i = len(data[0][1])  # number of outputs, 0th data point's output
     j = num_hidden_units
     k = len(data[0][0])  # number of inputs, 0th data point's input
@@ -106,7 +107,17 @@ def build_network(data, num_hidden_units, alpha,
             # For every data element in the data, perform forward
             # propagation and collecting all the errors from
             # forward_propagate and throwing them in a list
-            errors_all = []
+            errors_all = list(map(
+                lambda datum:
+                    net_error(
+                        forward_propagate(datum, v, w),
+                        datum[1]),
+                data))
+            error_worst = np.max(errors_all)
+            # errors_mean = np.average(errors_all)
 
-            errors_worst = 0
-            errors_mean = 0
+        if(error_worst < a_good_min_error):
+            print("breaking out the of the loop with a min error of: %f" %
+                  error_worst)
+            break
+    return v, w
