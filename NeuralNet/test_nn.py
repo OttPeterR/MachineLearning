@@ -42,6 +42,24 @@ def test_forward_propagate():
     ans = nn.forward_propagate(datum, v, w)
     print(ans)
 
-
 # test_forward_propagate()
 # passed
+
+
+
+def test_build_network():
+    data = [0]
+    num_hidden_units = 10
+    alpha = 5
+    initial_bounds = 1
+    max_iterations = 5000
+    modulo = 100
+
+
+    ans = nn.build_network(data, num_hidden_units, alpha,
+                  initial_bounds, max_iterations, modulo)
+    print(ans)
+
+
+
+test_build_network()
