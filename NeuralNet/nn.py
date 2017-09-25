@@ -65,8 +65,8 @@ def back_propagate(datum, alpha, v, w):
     # o = sigmoid[w . h]
     # odelta = (c - o) * o * (1 - o)
     # hdelta = (h * (1 - h) * (tr[w] . odelta))
-    # wdelta = alpha % (odelta . tr[h])
-    # vdelta = alpha (hdelta . tr[i])
+    # wdelta = alpha * (odelta . tr[h])
+    # vdelta = alpha * (hdelta . tr[i])
     # returns a list of (w + wdelta) and (v + vdelta)
     # which are updated network matricies
     i = datum[0]
@@ -93,17 +93,15 @@ def build_network(data, num_hidden_units, alpha,
     k = len(data[0][0])  # number of inputs, 0th data point's input
     v = gen_random_matrix(j, k, initial_bounds)  # input weights
     w = gen_random_matrix(i, j, initial_bounds)  # output weights
-
-    for i in range(max_iterations):
+    
+    for iteration in range(max_iterations):
         # For each data element in a randomized version of the data,
         # perform backpropagation.
-        v = 0
-        w = 0
         for datum in shuffle(data):
             (v, w) = back_propagate(datum, alpha, v, w)
 
         # every modulo iterations
-        if i % modulo == 0:
+        if iteration % modulo == 0:
             # For every data element in the data, perform forward
             # propagation and collecting all the errors from
             # forward_propagate and throwing them in a list
