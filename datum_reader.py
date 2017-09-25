@@ -64,3 +64,8 @@ def read_in_data_csv_with_class_last(filepath, delimiter=","):
         clas = line.pop()
         new_data.append([np.matrix(line), np.matrix(clas)])
     return new_data
+
+
+def normalize_data(mat):
+    # normalizes the data to all be in a [0, 1) interval
+    return mat
