@@ -1,28 +1,30 @@
 import numpy as np
+import time
+
 import nn
-import General.datum_reader as datum_reader
+import datum_reader as datum_reader
 
 
 def test_make_h():
-    v = np.matrix([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])
-    i = np.matrix([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
-    ans = nn.make_h(v, i)
-    print(ans)
+  v = np.matrix([[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]])
+  i = np.matrix([[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]])
+  ans = nn.make_h(v, i)
+  print(ans)
 # test_make_h()
 # passed
 
 
 def test_back_propagate():
-    datum = [np.matrix([[.1], [.5], [.9]]),
-             np.matrix([.9])]
-    alpha = 1
-    v = np.matrix([[.5, .5, .5],
-                   [.5, .5, .5],
-                   [.5, .5, .5],
-                   [.5, .5, .5]])
-    w = np.matrix([[.5, .5, .5, .5]])
-    ans = nn.back_propagate(datum, alpha, v, w)
-    print(ans)
+  datum = [np.matrix([[.1], [.5], [.9]]),
+           np.matrix([.9])]
+  alpha = 1
+  v = np.matrix([[.5, .5, .5],
+                 [.5, .5, .5],
+                 [.5, .5, .5],
+                 [.5, .5, .5]])
+  w = np.matrix([[.5, .5, .5, .5]])
+  ans = nn.back_propagate(datum, alpha, v, w)
+  print(ans)
 
 # test_back_propagate()
 # passed
@@ -48,16 +50,23 @@ def test_forward_propagate():
 
 
 def test_build_network():
-    data = datum_reader.read_in_data_csv_with_class_first("../DataSets/SUSY_2000_first.csv")
-    num_hidden_units = 10
+    print("reading data...")
+    data = datum_reader.read_in_data_csv_with_class_last(
+        "winequality-white.csv", ";")
+    print("  complete.")
+    num_hidden_units = 15
     alpha = 5
-    initial_bounds = 1
-    max_iterations = 5000
-    modulo = 100
-
+    initial_bounds = 1000
+    max_iterations = 3
+    modulo = 1
+    print("building net...")
     ans = nn.build_network(data, num_hidden_units, alpha,
                            initial_bounds, max_iterations, modulo)
+    print("  complete.")
     print(ans)
 
 
 test_build_network()
+
+# data = datum_reader.read_in_data_csv_with_class_last("winequality-white.csv", ";")
+# print(data[0])
