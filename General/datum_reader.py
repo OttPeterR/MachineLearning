@@ -1,8 +1,9 @@
+import numpy as np
 import csv
 
 
 def read_CSV(filepath):
-    with open(filepath, "rb") as f:
+    with open(filepath, "r") as f:
         reader = csv.reader(f)
         data = list(reader)
     return data
@@ -38,5 +39,5 @@ def read_in_data_csv_with_class_first(filepath):
     new_data = []
     for line in data:
         clas = line.pop(0)
-        new_data.append([line, clas])
+        new_data.append([np.matrix(line), clas])
     return new_data

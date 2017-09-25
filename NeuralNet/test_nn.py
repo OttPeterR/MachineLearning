@@ -1,5 +1,6 @@
 import numpy as np
 import nn
+import General.datum_reader as datum_reader
 
 
 def test_make_h():
@@ -46,20 +47,17 @@ def test_forward_propagate():
 # passed
 
 
-
 def test_build_network():
-    data = [0]
+    data = datum_reader.read_in_data_csv_with_class_first("../DataSets/SUSY_2000_first.csv")
     num_hidden_units = 10
     alpha = 5
     initial_bounds = 1
     max_iterations = 5000
     modulo = 100
 
-
     ans = nn.build_network(data, num_hidden_units, alpha,
-                  initial_bounds, max_iterations, modulo)
+                           initial_bounds, max_iterations, modulo)
     print(ans)
-
 
 
 test_build_network()

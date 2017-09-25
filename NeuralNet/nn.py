@@ -114,10 +114,11 @@ def build_network(data, num_hidden_units, alpha,
                         datum[1]),
                 data))
             error_worst = np.max(errors_all)
+            print(error_worst)
             # errors_mean = np.average(errors_all)
 
-        if(error_worst < a_good_min_error):
-            print("breaking out the of the loop with a min error of: %f" %
-                  error_worst)
-            break
+            if(error_worst < a_good_min_error):
+                print("breaking out the of the loop with a min error of: %f" %
+                      error_worst)
+                break
     return v, w
