@@ -67,5 +67,29 @@ def read_in_data_csv_with_class_last(filepath, delimiter=","):
 
 
 def normalize_data(mat):
-    # normalizes the data to all be in a [0, 1) interval
+    num_cols = len(mat[0])
+    max = mat[0][:]
+    min = mat[0][:]
+
+    # calculate min and max for each col
+    for row in mat:
+        for index in range(num_cols):
+            if(max[index] < row[index]):
+                max[index] = row[index]
+            if(min[index] > row[index]):
+                min[index] = row[index]
+
+    # compute ranges for each col
+    rang = [0] * num_cols
+    for index in range(num_cols):
+        rang[index] = max[index] - min[index]
+
+    # normalize all the values, respective to other elements in the same col
+    for row_num in range(len(mat)):
+        for col_num in range(num_cols):
+            # normalize: (val-min)/range
+            mat[row_num][col_num] = (
+                (mat[row_num][col_num] - min[col_num]) /
+                (rang[col_num]))
+
     return mat
