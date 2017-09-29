@@ -48,11 +48,25 @@ def test_forward_propagate():
 # passed
 
 
+def test_normalize():
+    data = [[-10, 30, 10],
+            [20, 20, 20],
+            [25, 25, 25],
+            [30, 30, 30]]
+    mat = np.matrix(data)
+    print(mat)
+    norm = datum_reader.normalize_data(mat)
+    print(norm)
+
+# test_normalize()
+# passed
+
+
 def test_build_network():
     print("reading data...")
     data = datum_reader.read_in_data_csv_with_class_last(
         "DataSets/winequality-white.csv", ";")
-    data = datum_reader.normalize_data(data)
+    data = datum_reader.normalize_data(np.matrix(data))
     num_hidden_units = 15
     alpha = 5
     initial_bounds = 1000
@@ -67,14 +81,5 @@ def test_build_network():
 # test_build_network()
 
 
-def test_normalize():
-    data = [[-1, 1, 1],
-            [2, 2, 2],
-            [3, 3, 3]]
-    print(data)
-    norm = datum_reader.normalize_data(data)
-    print(norm)
-
-
-# test_normalize()
-# passed
+wine = datum_reader.normalize_file(
+    "DataSets/winequality-white.csv", ";")
