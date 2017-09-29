@@ -1,7 +1,7 @@
 import numpy as np
 
 import nn
-import General.datum_reader as datum_reader
+import datum_reader as datum_reader
 
 
 def test_make_h():
@@ -51,8 +51,8 @@ def test_forward_propagate():
 def test_build_network():
     print("reading data...")
     data = datum_reader.read_in_data_csv_with_class_last(
-        "../DataSets/winequality-white.csv", ";")
-    print("  complete.")
+        "DataSets/winequality-white.csv", ";")
+    data = datum_reader.normalize_data(data)
     num_hidden_units = 15
     alpha = 5
     initial_bounds = 1000
@@ -64,9 +64,17 @@ def test_build_network():
     print("  complete.")
     print(ans)
 
+# test_build_network()
 
-test_build_network()
 
-# data = datum_reader.read_in_data_csv_with_class_last(
-# "winequality-white.csv", ";")
-# print(data[0])
+def test_normalize():
+    data = [[-1, 1, 1],
+            [2, 2, 2],
+            [3, 3, 3]]
+    print(data)
+    norm = datum_reader.normalize_data(data)
+    print(norm)
+
+
+# test_normalize()
+# passed
