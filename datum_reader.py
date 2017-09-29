@@ -2,6 +2,7 @@ import numpy as np
 import csv
 
 
+# just reads it in as python arrays, must be converted later
 def read_CSV(filepath, delimiter=','):
     with open(filepath, "r") as f:
         reader = csv.reader(f, delimiter=delimiter, quoting=csv.QUOTE_NONE)
@@ -45,7 +46,7 @@ def read_in_data_csv_with_class_first(filepath, delimiter=","):
     new_data = []
     for line in data:
         clas = line.pop(0)
-        new_data.append([line, clas])
+        new_data.append([np.matrix(line), np.matrix(clas)])
     return new_data
 
 
@@ -58,33 +59,36 @@ def read_in_data_csv_with_class_last(filepath, delimiter=","):
     return new_data
 
 
+# expects a numpy array
 def normalize_data(mat):
-    num_cols = len(mat[0])
-    max = mat[0][:]
-    min = mat[0][:]
+    num_cols = mat.shape[1]
+    maxx = np.squeeze(np.asarray(mat[0].copy()))
+    minn = np.squeeze(np.asarray(mat[0].copy()))
 
     # calculate min and max for each col
-    for row in mat:
-        for index in range(num_cols):
-            if(max[index] < row[index]):
-                max[index] = row[index]
-            if(min[index] > row[index]):
-                min[index] = row[index]
+    for row_num in range(len(mat)):
+        for col_num in range(num_cols):
+            if(maxx[col_num] < mat[row_num, col_num]):
+                maxx[col_num] = mat[row_num, col_num]
+            if(minn[col_num] > mat[row_num, col_num]):
+                minn[col_num] = mat[row_num, col_num]
 
     # compute ranges for each col
     rang = [0] * num_cols
+
     for index in range(num_cols):
-        rang[index] = max[index] - min[index]
+        rang[index] = float(maxx[index] - minn[index])
 
     # normalize all the values, respective to other elements in the same col
+    norm_mat = np.zeros(mat.shape)
     for row_num in range(len(mat)):
         for col_num in range(num_cols):
             # normalize: (val-min)/range
-            mat[row_num][col_num] = (
-                (mat[row_num][col_num] - min[col_num]) /
-                (rang[col_num]))
+            norm_mat[row_num, col_num] = (
+                (mat[row_num, col_num] - minn[col_num]) /
+                rang[col_num])
 
-    return mat
+    return norm_mat
 
 
 def normalize_file(filepath, delimiter=','):
@@ -94,4 +98,3 @@ def normalize_file(filepath, delimiter=','):
         writer = csv.writer(csv_file, delimiter=delimiter)
         for line in norm_data:
             writer.writerow(line)
-            
