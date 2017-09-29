@@ -15,20 +15,12 @@ def read_CSV(filepath, delimiter=','):
     return data
 
 
-def read_CSV2(filepath, delimiter=','):
-    data = []
-    with open(filepath, "r") as f:
-        for line in f:
-            data.append(line.split(delimiter))
-    return data
-
-
 def move_first_to_last(filepath, delimiter=","):
     # moves the class form the first to the last index
     data = read_CSV(filepath)
     # I know this messes with file extentions, I'm sorry
     with open(filepath + "_fixed", "wb") as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
+        writer = csv.writer(csv_file, delimiter=delimiter)
         for line in data:
             first = line.pop(0)  # take the first item off the list
             writer.writerow(line + [first])  # put it on the back
@@ -39,7 +31,7 @@ def move_last_to_first(filepath, delimiter=","):
     data = read_CSV(filepath, delimiter)
     # I know this messes with file extentions, I'm sorry
     with open(filepath + "_fixed", "wb") as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
+        writer = csv.writer(csv_file, delimiter=delimiter)
         for line in data:
             last = line.pop()  # take the last item off the list
             writer.writerow([last] + line)  # put it on the front
@@ -93,3 +85,13 @@ def normalize_data(mat):
                 (rang[col_num]))
 
     return mat
+
+
+def normalize_file(filepath, delimiter=','):
+    data = read_CSV(filepath, delimiter=delimiter)
+    norm_data = normalize_data(data)
+    with open(filepath + "_normalized", "wb") as csv_file:
+        writer = csv.writer(csv_file, delimiter=delimiter)
+        for line in norm_data:
+            writer.writerow(line)
+            
