@@ -59,8 +59,10 @@ def read_in_data_csv_with_class_last(filepath, delimiter=","):
     return new_data
 
 
-# expects a numpy array
 def normalize_data(mat):
+    if not isinstance(mat, np.matrix):
+        mat = np.matrix(mat)
+
     num_cols = mat.shape[1]
     maxx = np.squeeze(np.asarray(mat[0].copy()))
     minn = np.squeeze(np.asarray(mat[0].copy()))
@@ -93,8 +95,8 @@ def normalize_data(mat):
 
 def normalize_file(filepath, delimiter=','):
     data = read_CSV(filepath, delimiter=delimiter)
-    norm_data = normalize_data(data)
-    with open(filepath + "_normalized", "wb") as csv_file:
+    norm_data = normalize_data(np.matrix(data))
+    with open(filepath + "_normalized", "w") as csv_file:
         writer = csv.writer(csv_file, delimiter=delimiter)
         for line in norm_data:
             writer.writerow(line)
