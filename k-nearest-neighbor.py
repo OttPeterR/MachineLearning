@@ -1,5 +1,5 @@
 # K Nearest Neighbor
-import math
+import Math
 
 
 def count(a, b):
@@ -57,4 +57,3 @@ def k_nearest_neighbor(examples, new_example, k=1, measure='count'):
     # return the most common of the k nearest neighbors
     neighbors = neighbors[0:k]
     return max(set(neighbors), key=neighbors.count)
-    
