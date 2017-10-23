@@ -1,18 +1,21 @@
 # K Nearest Neighbor
-import Math
+import math
 
 
 def count(a, b):
-    return 1
+    if(a == b):
+        return 0
+    else:
+        return 1
 
 
 def squared(a, b):
-    dif = Math.abs(a - b)
+    dif = math.fabs(a - b)
     return dif * dif
 
 
 def manhattan(a, b):
-    return Math.abs(a - b)
+    return math.fabs(a - b)
 
 
 def dual_list_func(list1, list2, diff_func):
@@ -36,9 +39,9 @@ def difference(list1, list2, measure='count'):
         return dual_list_func(list1, list2, count)
 
 
-# https://stackoverflow.com/questions/916978/python-equivalent-of-maplist
+
 def maplist(func, lis):
-    return [map(func, lis[i:]) for i in xrange(len(lis))]
+    return list(map(func, lis))
 
 
 def k_nearest_neighbor(examples, new_example, k=1, measure='count'):
