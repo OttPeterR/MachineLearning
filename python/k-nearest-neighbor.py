@@ -39,12 +39,12 @@ def difference(list1, list2, measure='count'):
         return dual_list_func(list1, list2, count)
 
 
-
 def maplist(func, lis):
     return list(map(func, lis))
 
 
 def k_nearest_neighbor(examples, new_example, k=1, measure='count'):
+    # examples are in the form of [(data..., class...), ...]
     # a list of [ (distance, class) ... ]
     distance = maplist(lambda e: [difference(e[0], new_example[0], measure)],
                        examples)
