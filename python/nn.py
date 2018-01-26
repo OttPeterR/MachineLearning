@@ -5,9 +5,9 @@
 import numpy as np
 
 
-def shuffle(list):
-    # randomize a list
-    return list
+def shuffle(lis):
+    np.random.shuffle(lis)
+    return lis
 
 
 def sigmoid(u):
@@ -112,8 +112,8 @@ def build_network(data, num_hidden_units, alpha,
                         datum[1]),
                 data))
             error_worst = np.max(errors_all)
-            print(error_worst)
-            # errors_mean = np.average(errors_all)
+            errors_mean = np.average(errors_all)
+            print("iteration: %d\nmean:  %f\nworst: %f" % (iteration, errors_mean, error_worst))
 
             if(error_worst < a_good_min_error):
                 print("breaking out the of the loop with a min error of: %f" %

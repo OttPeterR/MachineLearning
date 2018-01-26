@@ -65,12 +65,12 @@ def test_normalize():
 def test_build_network():
     print("reading data...")
     data = datum_reader.read_in_data_csv_with_class_last(
-        "DataSets/winequality-white-normalized.csv", ";")
-    num_hidden_units = 10
+        "../DataSets/winequality-white-normalized.csv", ";")
+    num_hidden_units = 15
     alpha = 1.0
     initial_bounds = 1
-    max_iterations = 5000
-    modulo = 250
+    max_iterations = 1000
+    modulo = 25
     print("building net...")
     ans = nn.build_network(data, num_hidden_units, alpha,
                            initial_bounds, max_iterations, modulo)
