@@ -1,1 +1,0 @@
-# Locally Optimized Product Quantization
